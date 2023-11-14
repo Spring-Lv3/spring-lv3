@@ -37,5 +37,6 @@ public class Lecture {
         this.company = requestDto.getCompany();
         this.phoneNumber = requestDto.getPhoneNumber();
         this.comment = requestDto.getComment();
+        //d
     }
 }
