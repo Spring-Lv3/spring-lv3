@@ -1,6 +1,7 @@
 package com.sparta.adminserver.jwt;
 
 import com.sparta.adminserver.entity.enums.ManagerRoleEnum;
+import com.sparta.adminserver.exception.jwt.JwtTokenNotFoundException;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 import jakarta.annotation.PostConstruct;
@@ -42,11 +43,11 @@ public class JwtUtil {
     }
 
     // 토큰 생성
-    public String createToken(String username, ManagerRoleEnum role) {
+    public String createToken(String email, ManagerRoleEnum role) {
         Date date = new Date();
         return BEARER_PREFIX + // 헤더
                 Jwts.builder()
-                        .setSubject(username) // payload, 이름, role, exp, iat
+                        .setSubject(email) // payload, 이름, role, exp, iat
                         .claim(AUTHORIZATION_KEY, role)
                         .setExpiration(new Date(date.getTime() + TOKEN_TIME))
                         .setIssuedAt(date)
@@ -66,7 +67,7 @@ public class JwtUtil {
             return bearerToken.substring(BEARER_PREFIX.length());
         }
         log.error("Not Found Token");
-        throw new NullPointerException("Not Found Token");
+        throw new JwtTokenNotFoundException();
     }
 
     // 토큰 검증

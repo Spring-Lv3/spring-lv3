@@ -4,6 +4,7 @@ package com.sparta.adminserver.exception;
 import com.sparta.adminserver.exception.entity.Tutor.TutorNotFoundException;
 import com.sparta.adminserver.exception.entity.User.*;
 import com.sparta.adminserver.exception.entity.lecture.LectureNotFoundException;
+import com.sparta.adminserver.exception.jwt.JwtTokenNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -12,6 +13,19 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
+    
+    @ExceptionHandler(JwtTokenNotFoundException.class)
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    public ResponseEntity<?> handleJwtTokenNotFoundException(){
+        // 토큰 미식별로 다시 로그인 페이지 가는 로직
+        return new ResponseEntity<>("토큰 미식별로 다시 로그인 페이지 가는 로직", HttpStatus.UNAUTHORIZED);
+    }
+
+    @ExceptionHandler(NotAllowedForNonManagerException.class)
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    public ResponseEntity<?> handleNotAllowedForNonManagerException(){
+        return new ResponseEntity<>("매니저 권한이 없습니다.", HttpStatus.UNAUTHORIZED);
+    }
 
     @ExceptionHandler(LectureNotFoundException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST) // 404

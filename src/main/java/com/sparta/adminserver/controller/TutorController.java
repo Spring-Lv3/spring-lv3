@@ -6,6 +6,7 @@ import com.sparta.adminserver.dto.TutorResponseDto;
 import com.sparta.adminserver.jwt.JwtRequired;
 import com.sparta.adminserver.service.TutorService;
 import io.swagger.v3.oas.annotations.Operation;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,8 +20,8 @@ public class TutorController {
     @ApiDocument
     @Operation(summary = "test", description = "test")
     @PostMapping("")
-    public TutorResponseDto registerTutor(@RequestBody TutorRequestDto requestDto) {
-        return tutorService.registerTutor(requestDto);
+    public TutorResponseDto registerTutor(@RequestBody TutorRequestDto requestDto, HttpServletRequest req) {
+        return tutorService.registerTutor(requestDto, req);
     }
 
     @JwtRequired
