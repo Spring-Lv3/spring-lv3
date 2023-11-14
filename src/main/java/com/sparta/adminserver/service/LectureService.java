@@ -49,12 +49,12 @@ public class LectureService {
 
     // 선택한 강사가 촬영한 강의 목록 조회
     public List<LectureResponseDto> findLectureByTutor(Long tutorId) {
-        return lectureRepository.findByTutorTutor_idAndOrderByRegisteredAtDesc(tutorId).stream().map(LectureResponseDto::new).toList();
+        return lectureRepository.findByTutor_TutorIdOrderByRegisteredAtDesc(tutorId).stream().map(LectureResponseDto::new).toList();
     }
 
     // 카테고리별 강의 목록 조회
     public List<LectureResponseDto> findLectureByCategory(String category) {
-        return lectureRepository.findByCategoryAndOrderByRegisteredAtDesc(category).stream().map(LectureResponseDto::new).toList();
+        return lectureRepository.findByCategoryOrderByRegisteredAtDesc(category).stream().map(LectureResponseDto::new).toList();
     }
 
     // 강의 삭제

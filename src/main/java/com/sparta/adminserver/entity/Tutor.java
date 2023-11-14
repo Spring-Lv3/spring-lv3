@@ -17,7 +17,7 @@ import java.util.List;
 public class Tutor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long tutor_id;
+    private Long tutorId;
 
     @OneToMany(mappedBy = "tutor")
     private List<Lecture> lectures = new ArrayList<>();

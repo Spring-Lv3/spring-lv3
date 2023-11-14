@@ -17,10 +17,10 @@ import java.time.LocalDateTime;
 public class Lecture {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long lecture_id;
+    private Long lectureId;
 
     @ManyToOne
-    @JoinColumn(name = "tutor_id")
+    @JoinColumn(name = "tutorId")
     private Tutor tutor;
 
     @Column(nullable = false)

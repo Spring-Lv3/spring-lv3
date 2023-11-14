@@ -8,6 +8,6 @@ import java.util.List;
 
 @Repository
 public interface LectureRepository extends JpaRepository<Lecture, Long> {
-    List<Lecture> findByCategoryAndOrderByRegisteredAtDesc(String category);
-    List<Lecture> findByTutorTutor_idAndOrderByRegisteredAtDesc(Long tutorId);
+    List<Lecture> findByCategoryOrderByRegisteredAtDesc(String category);
+    List<Lecture> findByTutor_TutorIdOrderByRegisteredAtDesc(Long tutorId);
 }
