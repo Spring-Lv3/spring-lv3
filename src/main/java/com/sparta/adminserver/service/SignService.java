@@ -2,6 +2,7 @@ package com.sparta.adminserver.service;
 
 import com.sparta.adminserver.dto.SignInRequestDto;
 import com.sparta.adminserver.dto.SignUpRequestDto;
+import com.sparta.adminserver.exception.entity.User.*;
 import com.sparta.adminserver.entity.User;
 import com.sparta.adminserver.entity.enums.ManagerRoleEnum;
 import com.sparta.adminserver.entity.enums.UserDepartmentEnum;
@@ -32,20 +33,20 @@ public class SignService {
         // 이메일 중복
         String email = req.getEmail();
         if (userRepository.findByEmail(email).isPresent()) {
-            throw new RuntimeException("이메일붕족");
+            throw new DuplicateEmailException();
         }
 
         // 권한 및 부서 검사
         if (Objects.equals(req.getRole(), ManagerRoleEnum.MANAGER.toString())) {
             if (Stream.of(UserDepartmentEnum.CURRICULUM, UserDepartmentEnum.DEVELOPMENT).noneMatch((userDepartmentEnum -> userDepartmentEnum.toString().equals(req.getDepartment())))) {
-                throw new RuntimeException("매니저 권한은 커리큘럼 부서 혹은 개발 부서만 받을 수 있습니다.");
+                throw new ManagerRoleNotAvailableException();
             }
         }
 
         // 비밀번호 유효 검사
         String password = req.getPassword();
         if (!password.matches(passwordRegex)) {
-            throw new RuntimeException("패스워드 실패");
+            throw new PasswordNotAvailableByRuleException();
         }
 
         // 비밀번호 암호화
@@ -62,9 +63,9 @@ public class SignService {
         String password = req.getPassword();
 
         // email 존재 검증
-        User user = userRepository.findByEmail(email).orElseThrow(IllegalArgumentException::new);
+        User user = userRepository.findByEmail(email).orElseThrow(EmailNotFoundException::new);
         if (!passwordEncoder.matches(password, user.getPassword())) {
-            throw new IllegalArgumentException("비밀번호 불일치");
+            throw new PasswordNotMatchedException();
         }
 
         // jwt 생성, 저장, 쿠키 추가

@@ -4,6 +4,8 @@ import com.sparta.adminserver.dto.LectureRequestDto;
 import com.sparta.adminserver.dto.LectureResponseDto;
 import com.sparta.adminserver.entity.Lecture;
 import com.sparta.adminserver.entity.Tutor;
+import com.sparta.adminserver.exception.entity.Tutor.TutorNotFoundException;
+import com.sparta.adminserver.exception.entity.lecture.LectureNotFoundException;
 import com.sparta.adminserver.repository.LectureRepository;
 import com.sparta.adminserver.repository.TutorRepository;
 import jakarta.transaction.Transactional;
@@ -23,7 +25,7 @@ public class LectureService {
     @Transactional
     public LectureResponseDto registerLecture(LectureRequestDto requestDto) {
         // 널 처리 필요
-        Tutor tutor = tutorRepository.findById(requestDto.getTutorId()).orElseThrow();
+        Tutor tutor = tutorRepository.findById(requestDto.getTutorId()).orElseThrow(TutorNotFoundException::new);
         Lecture lecture = new Lecture(requestDto);
         // Lecture Entity와 Tutor Entity 연결
         tutor.addLecture(lecture);
@@ -35,7 +37,7 @@ public class LectureService {
     @Transactional
     public LectureResponseDto modifyLecture(Long lectureId, LectureRequestDto requestDto) {
         // 널 처리 필요
-        Lecture lecture = lectureRepository.findById(lectureId).orElseThrow();
+        Lecture lecture = lectureRepository.findById(lectureId).orElseThrow(LectureNotFoundException::new);
         lecture.modify(requestDto);
         return new LectureResponseDto(lecture);
     }
@@ -43,7 +45,7 @@ public class LectureService {
     // 강의 조회
     public LectureResponseDto findLecture(Long lectureId) {
         // 널 처리 필요
-        Lecture lecture = lectureRepository.findById(lectureId).orElseThrow();
+        Lecture lecture = lectureRepository.findById(lectureId).orElseThrow(LectureNotFoundException::new);
         return new LectureResponseDto(lecture);
     }
 
