@@ -55,16 +55,8 @@ public class JwtUtil {
     }
 
     // JWT Cookie 에 저장
-    public void addJwtToCookie(String token, HttpServletResponse res) {
-        // Cookie Value 에는 공백이 불가능해서 encoding 진행
-        token = URLEncoder.encode(token, StandardCharsets.UTF_8).replaceAll("\\+", "%20");
-
-        // 헤더와 내 jwt토큰을 쿠키로 생성
-        Cookie cookie = new Cookie(AUTHORIZATION_HEADER, token);
-        cookie.setPath("/");
-
-        // Response 객체에 Cookie 추가
-        res.addCookie(cookie);
+    public void addJwtToHeader(String token, HttpServletResponse res) {
+        res.addHeader(AUTHORIZATION_HEADER, token);
     }
 
     // bearer 제거

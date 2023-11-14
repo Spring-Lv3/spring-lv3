@@ -70,6 +70,6 @@ public class SignService {
 
         // jwt 생성, 저장, 쿠키 추가
         String token = jwtUtil.createToken(email, ManagerRoleEnum.valueOf(user.getRole()));
-        jwtUtil.addJwtToCookie(token, res); // 서블릿 리스폰스를 주면 안에서 토큰을 넣어준다.
+        jwtUtil.addJwtToHeader(token, res); // 서블릿 리스폰스를 주면 안에서 토큰을 넣어준다.
     }
 }
