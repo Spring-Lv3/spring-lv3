@@ -20,7 +20,7 @@ public class TutorService {
 
     // 강사 등록
     public TutorResponseDto registerTutor(TutorRequestDto requestDto, HttpServletRequest req) {
-        if(!checkAuth(req, ManagerRoleEnum.MANAGER)){
+        if(!checkAuth(req, ManagerRoleEnum.MANAGER)){ // Manager 권한이 없는 경우 예외
             throw new NotAllowedForNonManagerException();
         }
         Tutor tutor = new Tutor(requestDto);
@@ -28,6 +28,8 @@ public class TutorService {
         return new TutorResponseDto(tutor);
     }
 
+    // http 요청안의 jwt claim auth값을 확인하는 함수
+    // 현재는 Manager 확인 용도 밖에 없음
     private boolean checkAuth(HttpServletRequest req, ManagerRoleEnum managerRoleEnum) {
         Claims claims = ((Claims) req.getAttribute("user"));
         return claims.get("auth").equals(managerRoleEnum.toString());

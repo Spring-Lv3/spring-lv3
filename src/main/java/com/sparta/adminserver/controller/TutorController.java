@@ -21,6 +21,7 @@ public class TutorController {
     @Operation(summary = "test", description = "test")
     @PostMapping("")
     public TutorResponseDto registerTutor(@RequestBody TutorRequestDto requestDto, HttpServletRequest req) {
+        // service 내에서 권한 확인 위해서 req 객체 전달
         return tutorService.registerTutor(requestDto, req);
     }
 
