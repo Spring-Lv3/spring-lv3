@@ -1,5 +1,6 @@
 package com.sparta.adminserver.jwt;
 
+import io.jsonwebtoken.Claims;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -25,6 +26,9 @@ public class JwtInterceptor implements HandlerInterceptor {
             if(!jwtUtil.validateToken(token)){
                 return false;
             }
+            // claim 담기
+            Claims claims = jwtUtil.getUserInfoFromToken(token);
+            request.setAttribute("user", claims);
         }
         return true;
     }
