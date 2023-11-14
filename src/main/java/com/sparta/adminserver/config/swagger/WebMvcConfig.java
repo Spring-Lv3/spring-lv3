@@ -16,7 +16,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
 
     @Autowired
     private final JwtUtil jwtUtil;
-    @Value("${spring.url}")
+    @Value("${spring.local.url}")
     private static String URI;
 
     @Override

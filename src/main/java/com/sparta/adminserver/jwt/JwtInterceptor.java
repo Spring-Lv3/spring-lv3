@@ -25,7 +25,6 @@ public class JwtInterceptor implements HandlerInterceptor {
             if(!jwtUtil.validateToken(token)){
                 return false;
             }
-
         }
 
         return true;
