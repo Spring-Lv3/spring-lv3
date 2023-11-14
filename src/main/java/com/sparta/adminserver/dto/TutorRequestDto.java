@@ -5,10 +5,10 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class LectureRequestDto {
+public class TutorRequestDto {
     private String name;
-    private Long price;
+    private Long career;
+    private String company;
+    private String phoneNumber;
     private String comment;
-    private String category;
-    private Long tutorId;
 }
