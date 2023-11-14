@@ -6,6 +6,7 @@ import com.sparta.adminserver.dto.LectureResponseDto;
 import com.sparta.adminserver.jwt.JwtRequired;
 import com.sparta.adminserver.service.LectureService;
 import io.swagger.v3.oas.annotations.Operation;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,7 +23,7 @@ public class LectureController {
     @ApiDocument
     @Operation(summary = "test", description = "test")
     @PostMapping("/lecture")
-    public LectureResponseDto registerLecture(@RequestBody LectureRequestDto req) {
+    public LectureResponseDto registerLecture(@RequestBody @Valid LectureRequestDto req) {
         return lectureService.registerLecture(req);
     }
 
@@ -30,7 +31,7 @@ public class LectureController {
     @ApiDocument
     @Operation(summary = "test", description = "test")
     @PutMapping("/lecture/{lectureId}")
-    public LectureResponseDto modifyLecture(@PathVariable Long lectureId, @RequestBody LectureRequestDto req) {
+    public LectureResponseDto modifyLecture(@PathVariable Long lectureId, @RequestBody @Valid LectureRequestDto req) {
         return lectureService.modifyLecture(lectureId, req);
     }
 

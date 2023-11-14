@@ -51,6 +51,7 @@ public class LectureService {
 
     // 선택한 강사가 촬영한 강의 목록 조회
     public List<LectureResponseDto> findLectureByTutor(Long tutorId) {
+        tutorRepository.findById(tutorId).orElseThrow(TutorNotFoundException::new);
         return lectureRepository.findByTutor_TutorIdOrderByRegisteredAtDesc(tutorId).stream().map(LectureResponseDto::new).toList();
     }
 
