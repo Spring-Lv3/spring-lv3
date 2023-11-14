@@ -92,4 +92,10 @@ public class JwtUtil {
         return Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token).getBody();
     }
 
+    // http 요청안의 jwt claim auth값을 확인하는 함수
+    // 현재는 Manager 확인 용도 밖에 없음
+    public boolean checkAuth(HttpServletRequest req, ManagerRoleEnum managerRoleEnum) {
+        Claims claims = ((Claims) req.getAttribute("user"));
+        return claims.get("auth").equals(managerRoleEnum.toString());
+    }
 }

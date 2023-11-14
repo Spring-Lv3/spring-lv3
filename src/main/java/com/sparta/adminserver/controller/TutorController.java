@@ -20,17 +20,17 @@ public class TutorController {
     @ApiDocument
     @Operation(summary = "test", description = "test")
     @PostMapping("")
-    public TutorResponseDto registerTutor(@RequestBody TutorRequestDto requestDto, HttpServletRequest req) {
+    public TutorResponseDto registerTutor(@RequestBody TutorRequestDto requestDto) {
         // service 내에서 권한 확인 위해서 req 객체 전달
-        return tutorService.registerTutor(requestDto, req);
+        return tutorService.registerTutor(requestDto);
     }
 
     @JwtRequired
     @ApiDocument
     @Operation(summary = "test", description = "test")
     @PutMapping("/{tutor_id}")
-    public TutorResponseDto modifyTutor(@PathVariable Long tutor_id, @RequestBody TutorRequestDto requestDto) {
-        return tutorService.modifyTutor(tutor_id, requestDto);
+    public TutorResponseDto modifyTutor(@PathVariable Long tutor_id, @RequestBody TutorRequestDto requestDto, HttpServletRequest httpreq) {
+        return tutorService.modifyTutor(tutor_id, requestDto, httpreq);
     }
 
     @JwtRequired

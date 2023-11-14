@@ -4,10 +4,14 @@ import com.sparta.adminserver.dto.LectureRequestDto;
 import com.sparta.adminserver.dto.LectureResponseDto;
 import com.sparta.adminserver.entity.Lecture;
 import com.sparta.adminserver.entity.Tutor;
+import com.sparta.adminserver.entity.enums.ManagerRoleEnum;
 import com.sparta.adminserver.exception.entity.Tutor.TutorNotFoundException;
+import com.sparta.adminserver.exception.entity.User.NotAllowedForNonManagerException;
 import com.sparta.adminserver.exception.entity.lecture.LectureNotFoundException;
+import com.sparta.adminserver.jwt.JwtUtil;
 import com.sparta.adminserver.repository.LectureRepository;
 import com.sparta.adminserver.repository.TutorRepository;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +24,7 @@ import java.util.List;
 public class LectureService {
     private final LectureRepository lectureRepository;
     private final TutorRepository tutorRepository;
+    private final JwtUtil jwtUtil;
 
     // 강의 등록
     @Transactional
@@ -35,8 +40,10 @@ public class LectureService {
 
     // 강의 정보 수정
     @Transactional
-    public LectureResponseDto modifyLecture(Long lectureId, LectureRequestDto requestDto) {
-        // 널 처리 필요
+    public LectureResponseDto modifyLecture(Long lectureId, LectureRequestDto requestDto, HttpServletRequest httpreq) {
+        if(!jwtUtil.checkAuth(httpreq, ManagerRoleEnum.MANAGER)){
+            throw new NotAllowedForNonManagerException();
+        }
         Lecture lecture = lectureRepository.findById(lectureId).orElseThrow(LectureNotFoundException::new);
         lecture.modify(requestDto);
         return new LectureResponseDto(lecture);
