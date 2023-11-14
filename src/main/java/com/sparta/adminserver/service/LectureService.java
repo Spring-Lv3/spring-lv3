@@ -63,4 +63,3 @@ public class LectureService {
         return ResponseEntity.ok().build();
     }
 }
-
