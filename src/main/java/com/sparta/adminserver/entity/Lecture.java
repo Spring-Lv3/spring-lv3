@@ -35,10 +35,10 @@ public class Lecture {
     @Column(nullable = false)
     private String category;
 
-//    @CreatedDate
-//    @Column(updatable = false)
-//    @Temporal(TemporalType.TIMESTAMP)
-//    private LocalDateTime registeredAt;
+    @CreatedDate
+    @Column(updatable = false)
+    @Temporal(TemporalType.TIMESTAMP)
+    private LocalDateTime registeredAt;
 
     public Lecture(LectureRequestDto requestDto) {
         this.name = requestDto.getName();

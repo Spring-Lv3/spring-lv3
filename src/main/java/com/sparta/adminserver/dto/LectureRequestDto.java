@@ -10,4 +10,5 @@ public class LectureRequestDto {
     private Long price;
     private String comment;
     private String category;
+    private Long tutorId;
 }
