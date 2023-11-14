@@ -25,14 +25,23 @@ public class LectureController {
     }
 
     @PutMapping("/lecture/{lectureId}")
-    public LectureResponseDto modifiedLecture(@PathVariable Long lectureId, @RequestBody LectureRequestDto req){
+    public LectureResponseDto modifiedLecture(@PathVariable Long lectureId, @RequestBody LectureRequestDto req) {
         return lectureService.modifiedLecture(lectureId, req);
     }
 
     @GetMapping("/lecture/{lectureId}")
-    public LectureResponseDto findLecture(@PathVariable Long lectureId){
+    public LectureResponseDto findLecture(@PathVariable Long lectureId) {
         return lectureService.findLecture(lectureId);
     }
 
-    // TODO: 2023-11-14 카테고리별 강의 조회 해야함
+    //@GetMapping("/lectures?tutor-id={tutorId}")
+    @GetMapping("/lectures/tutor/{tutorId}")
+    public List<LectureResponseDto> findLectureByTutor(@PathVariable Long tutorId) {
+        return lectureService.findLectureByTutor(tutorId);
+    }
+
+    @GetMapping("/lectures/category/{category}")
+    public List<LectureResponseDto> findLectureByCategory(@PathVariable String category) {
+        return lectureService.findLectureByCategory(category);
+    }
 }
