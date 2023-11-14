@@ -31,7 +31,7 @@ public class Tutor {
     @Column(length = 500)
     private String comment;
 
-    public Tutor(LectureRequestDto requestDto) {
+    public Tutor(TutorRequestDto requestDto) {
         this.name = requestDto.getName();
         this.career = requestDto.getCareer();
         this.company = requestDto.getCompany();
