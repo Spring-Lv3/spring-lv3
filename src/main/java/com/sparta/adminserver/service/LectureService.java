@@ -21,7 +21,7 @@ public class LectureService {
 
     // 강의 등록
     @Transactional
-    public LectureResponseDto registeredLecture(LectureRequestDto requestDto) {
+    public LectureResponseDto registerLecture(LectureRequestDto requestDto) {
         // 널 처리 필요
         Tutor tutor = tutorRepository.findById(requestDto.getTutorId()).orElseThrow();
         Lecture lecture = new Lecture(requestDto);
@@ -33,7 +33,7 @@ public class LectureService {
 
     // 강의 정보 수정
     @Transactional
-    public LectureResponseDto modifiedLecture(Long lectureId, LectureRequestDto requestDto) {
+    public LectureResponseDto modifyLecture(Long lectureId, LectureRequestDto requestDto) {
         // 널 처리 필요
         Lecture lecture = lectureRepository.findById(lectureId).orElseThrow();
         lecture.modify(requestDto);

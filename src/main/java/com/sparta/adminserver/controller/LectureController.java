@@ -2,11 +2,7 @@ package com.sparta.adminserver.controller;
 
 import com.sparta.adminserver.dto.LectureRequestDto;
 import com.sparta.adminserver.dto.LectureResponseDto;
-import com.sparta.adminserver.dto.TutorRequestDto;
-import com.sparta.adminserver.dto.TutorResponseDto;
 import com.sparta.adminserver.service.LectureService;
-import com.sparta.adminserver.service.TutorService;
-import jakarta.websocket.server.PathParam;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,12 +17,12 @@ public class LectureController {
 
     @PostMapping("/lecture")
     public LectureResponseDto registerLecture(@RequestBody LectureRequestDto req) {
-        return lectureService.registeredLecture(req);
+        return lectureService.registerLecture(req);
     }
 
     @PutMapping("/lecture/{lectureId}")
-    public LectureResponseDto modifiedLecture(@PathVariable Long lectureId, @RequestBody LectureRequestDto req) {
-        return lectureService.modifiedLecture(lectureId, req);
+    public LectureResponseDto modifyLecture(@PathVariable Long lectureId, @RequestBody LectureRequestDto req) {
+        return lectureService.modifyLecture(lectureId, req);
     }
 
     @GetMapping("/lecture/{lectureId}")

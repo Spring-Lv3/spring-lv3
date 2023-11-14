@@ -4,7 +4,6 @@ import com.sparta.adminserver.dto.TutorRequestDto;
 import com.sparta.adminserver.dto.TutorResponseDto;
 import com.sparta.adminserver.service.TutorService;
 import lombok.RequiredArgsConstructor;
-import org.hibernate.tool.schema.internal.exec.ScriptTargetOutputToUrl;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -14,8 +13,8 @@ public class TutorController {
     private final TutorService tutorService;
 
     @PostMapping("")
-    public TutorResponseDto registeredTutor(@RequestBody TutorRequestDto requestDto) {
-        return tutorService.registeredTutor(requestDto);
+    public TutorResponseDto registerTutor(@RequestBody TutorRequestDto requestDto) {
+        return tutorService.registerTutor(requestDto);
     }
 
     @PutMapping("/{tutor_id}")

@@ -14,7 +14,7 @@ public class TutorService {
     private final TutorRepository tutorRepository;
 
     // 강사 등록
-    public TutorResponseDto registeredTutor(TutorRequestDto requestDto) {
+    public TutorResponseDto registerTutor(TutorRequestDto requestDto) {
         Tutor tutor = new Tutor(requestDto);
         tutorRepository.save(tutor);
         return new TutorResponseDto(tutor);
