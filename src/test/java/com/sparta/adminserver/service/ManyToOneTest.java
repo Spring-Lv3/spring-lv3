@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
 
+import java.util.Optional;
+
 @Transactional
 @SpringBootTest
 public class  ManyToOneTest {
@@ -24,23 +26,20 @@ public class  ManyToOneTest {
     @Rollback(value = false)
     @DisplayName("DB 넣기")
     void test1() {
-        Tutor tutor = new Tutor();
-        tutor.setName("Gary");
-        tutor.setCareer(1L);
-        tutor.setCompany("Hanghae99");
-        tutor.setPhoneNumber("010-0000-0000");
-        tutor.setComment("Hello, World");
-        tutorRepository.save(tutor);
-
+        Tutor tutor = tutorRepository.findById(1L).orElseThrow();
 
         Lecture lecture = new Lecture();
-        lecture.setName("Gary");
+        lecture.setName("DEF");
         lecture.setTutor(tutor);
         lecture.setPrice(13000L);
         lecture.setCategory("Spring");
         lecture.setComment("Hello, World!");
         lectureRepository.save(lecture);
 
+
         tutor.addLecture(lecture);
+        for (Lecture lec : tutor.getLectures()) {
+            System.out.println("lec.getName() = " + lec.getName());
+        }
     }
 }
