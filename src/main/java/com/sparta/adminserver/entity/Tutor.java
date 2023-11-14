@@ -51,7 +51,7 @@ public class Tutor {
     }
 
     public void modify(TutorRequestDto requestDto) {
-        this.name = requestDto.getName();
+        //this.name = requestDto.getName();
         this.career = requestDto.getCareer();
         this.company = requestDto.getCompany();
         this.phoneNumber = requestDto.getPhoneNumber();
